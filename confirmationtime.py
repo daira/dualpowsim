@@ -4,7 +4,7 @@ from numpy.random import exponential
 from numpy import mean, median, percentile, histogram, cumsum, max
 from matplotlib import pyplot
 
-NSAMPLES = 1000000
+NSAMPLES = 10000000
 
 def simulate(expectation, confirmations):
     print(expectation, confirmations)
