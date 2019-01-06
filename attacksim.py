@@ -143,19 +143,22 @@ def plot_all():
                                            [(manipulation_advantage, adv_share_A, adv_share_B)
                                             for adv_share_A in adv_share_A_range])
 
-        pyplot.plot(adv_share_A_range, parallel_results,    label="adv_share_B=%f parallel" % (adv_share_B,))
-        pyplot.plot(adv_share_A_range, alternating_results, label="adv_share_B=%f alternating" % (adv_share_B,))
+        pyplot.plot(adv_share_A_range, parallel_results,    label="adv_share_B=%.1f parallel" % (adv_share_B,))
+        pyplot.plot(adv_share_A_range, alternating_results, label="adv_share_B=%.1f alternating" % (adv_share_B,))
 
     for confirmations in (10, CONFIRMATIONS):
         single_results = pool.starmap(simulate_single,
                                       [(adv_share_A, confirmations) for adv_share_A in adv_share_A_range])
-        pyplot.plot(adv_share_A_range, single_results, label="single PoW %d conf" % (confirmations,))
+        pyplot.plot(adv_share_A_range, single_results, label="single PoW %d conf" % (confirmations,),
+                    color='black' if confirmations == 10 else 'yellow')
 
     for adv_share_B in adv_share_B_range:
         plot(adv_share_B)
 
     pyplot.axis((0.0, 0.5, 0.0, 0.5))
     pyplot.legend()
+    pyplot.xlabel("adv_share_A")
+    pyplot.ylabel("success probability per attempt")
     pyplot.show()
 
 plot_all()
