@@ -25,8 +25,7 @@ def debug(*args):
         sys.stderr.write('.')
         sys.stderr.flush()
 
-def simulate_parallel(arg):
-    (manipulation_advantage, adv_share_A, adv_share_B) = arg
+def simulate_parallel(manipulation_advantage, adv_share_A, adv_share_B):
     debug("manipulation_advantage  =", manipulation_advantage)
     debug("adv_share_A             =", adv_share_A)
     debug("adv_share_B             =", adv_share_B)
@@ -72,8 +71,7 @@ def parallel_trial(effective_blocktimes, confirmations):
 
     return total_time
 
-def simulate_alternating(arg):
-    (manipulation_advantage, adv_share_A, adv_share_B) = arg
+def simulate_alternating(manipulation_advantage, adv_share_A, adv_share_B):
     debug("manipulation_advantage  =", manipulation_advantage)
     debug("adv_share_A             =", adv_share_A)
     debug("adv_share_B             =", adv_share_B)
@@ -102,8 +100,7 @@ def simulate_alternating(arg):
     debug()
     return adv_success
 
-def simulate_single(arg):
-    (adv_share, confirmations) = arg
+def simulate_single(adv_share, confirmations):
     debug("adv_share               =", adv_share)
     debug("confirmations           =", confirmations)
 
@@ -134,19 +131,19 @@ def plot_all():
     manipulation_advantage = 1.0
 
     def plot(adv_share_B):
-        parallel_results    = pool.map(simulate_parallel,
-                                       [(manipulation_advantage, adv_share_A, adv_share_B)
-                                        for adv_share_A in adv_share_A_range])
-        alternating_results = pool.map(simulate_alternating,
-                                       [(manipulation_advantage, adv_share_A, adv_share_B)
-                                        for adv_share_A in adv_share_A_range])
+        parallel_results    = pool.starmap(simulate_parallel,
+                                           [(manipulation_advantage, adv_share_A, adv_share_B)
+                                            for adv_share_A in adv_share_A_range])
+        alternating_results = pool.starmap(simulate_alternating,
+                                           [(manipulation_advantage, adv_share_A, adv_share_B)
+                                            for adv_share_A in adv_share_A_range])
 
         pyplot.plot(adv_share_A_range, parallel_results,    label="adv_share_B=%f parallel" % (adv_share_B,))
         pyplot.plot(adv_share_A_range, alternating_results, label="adv_share_B=%f alternating" % (adv_share_B,))
 
     for confirmations in (10, CONFIRMATIONS):
-        single_results = pool.map(simulate_single,
-                                  [(adv_share_A, confirmations) for adv_share_A in adv_share_A_range])
+        single_results = pool.starmap(simulate_single,
+                                      [(adv_share_A, confirmations) for adv_share_A in adv_share_A_range])
         pyplot.plot(adv_share_A_range, single_results, label="single PoW %d conf" % (confirmations,))
 
     for adv_share_B in adv_share_B_range:
