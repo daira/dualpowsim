@@ -8,9 +8,9 @@ import sys
 
 PROCESSES = cpu_count()
 
-NTRIALS = 200000
+NTRIALS = 500000
 
-BLOCKTIME = 150.0  # for each alg
+BLOCKTIME = 150.0  # this doesn't affect the simulation results
 CONFIRMATIONS = 21
 ALTERNATING_CONFIRMATIONS = 10
 THRESHOLD = 5
@@ -133,7 +133,7 @@ def plot_all():
 
     adv_share_A_range = [a/200.0 for a in range(1, 101)]
     adv_share_B_range = [b/10.0 for b in range(5, 10)]
-    manipulation_advantage = 1.0
+    manipulation_advantage = 1.5
 
     def plot(adv_share_B):
         parallel_results    = pool.starmap(simulate_parallel,
