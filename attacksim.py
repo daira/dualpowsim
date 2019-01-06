@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 
 from numpy.random import exponential
-from numpy import mean, median, percentile, histogram, cumsum, max
 from matplotlib import pyplot
 from collections import deque
 from multiprocessing import Pool, cpu_count
