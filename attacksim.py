@@ -20,7 +20,7 @@ GROUP = 6
 def debug(*args):
     if PROCESSES == 1:
         print(*args)
-    else:
+    elif len(args) == 0:
         sys.stderr.write('.')
         sys.stderr.flush()
 
