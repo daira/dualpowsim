@@ -8,6 +8,8 @@ import sys
 
 PROCESSES = cpu_count()
 
+# 500000 trials per data point gives nice smooth curves, but the simulation takes a *long* time.
+# Reduce this by a factor of 10 or 50 to get quicker-and-dirtier results.
 NTRIALS = 500000
 
 BLOCKTIME = 150.0  # this doesn't affect the simulation results
