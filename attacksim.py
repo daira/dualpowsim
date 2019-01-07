@@ -17,6 +17,7 @@ CONFIRMATIONS = 21
 ALTERNATING_CONFIRMATIONS = 10
 THRESHOLD = 5
 GROUP = 6
+MANIPULATION_ADVANTAGE = 1.5
 
 
 def debug(*args):
@@ -135,14 +136,13 @@ def plot_all():
 
     adv_share_A_range = [a/200.0 for a in range(1, 101)]
     adv_share_B_range = [b/10.0 for b in range(5, 10)]
-    manipulation_advantage = 1.5
 
     def plot(adv_share_B):
         parallel_results    = pool.starmap(simulate_parallel,
-                                           [(manipulation_advantage, adv_share_A, adv_share_B)
+                                           [(MANIPULATION_ADVANTAGE, adv_share_A, adv_share_B)
                                             for adv_share_A in adv_share_A_range])
         alternating_results = pool.starmap(simulate_alternating,
-                                           [(manipulation_advantage, adv_share_A, adv_share_B)
+                                           [(MANIPULATION_ADVANTAGE, adv_share_A, adv_share_B)
                                             for adv_share_A in adv_share_A_range])
 
         pyplot.plot(adv_share_A_range, parallel_results,    label="adv_share_B=%.1f parallel" % (adv_share_B,))
