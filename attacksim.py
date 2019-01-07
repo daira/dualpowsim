@@ -30,8 +30,8 @@ def simulate_parallel(manipulation_advantage, adv_share_A, adv_share_B):
     debug("adv_share_B             =", adv_share_B)
 
     adv_successes = deque()
-    for (blocktime_A, blocktime_B) in [(BLOCKTIME*manipulation_advantage, BLOCKTIME),
-                                       (BLOCKTIME, BLOCKTIME*manipulation_advantage)]:
+    for (blocktime_A, blocktime_B) in set([(BLOCKTIME*manipulation_advantage, BLOCKTIME),
+                                           (BLOCKTIME, BLOCKTIME*manipulation_advantage)]):
         honest_share_A = 1.0-adv_share_A
         honest_share_B = 1.0-adv_share_B
         honest_blocktimes = [blocktime_A/honest_share_A, blocktime_B/honest_share_B]
@@ -79,8 +79,8 @@ def simulate_alternating(manipulation_advantage, adv_share_A, adv_share_B):
     debug("adv_share_B             =", adv_share_B)
 
     adv_successes = deque()
-    for (blocktime_A, blocktime_B) in [(BLOCKTIME/2.0*manipulation_advantage, BLOCKTIME/2.0),
-                                       (BLOCKTIME/2.0, BLOCKTIME/2.0*manipulation_advantage)]:
+    for (blocktime_A, blocktime_B) in set([(BLOCKTIME/2.0*manipulation_advantage, BLOCKTIME/2.0),
+                                           (BLOCKTIME/2.0, BLOCKTIME/2.0*manipulation_advantage)]):
         honest_share_A = 1.0-adv_share_A
         honest_share_B = 1.0-adv_share_B
         honest_blocktime_A = blocktime_A/honest_share_A
