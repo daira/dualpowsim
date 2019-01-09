@@ -37,6 +37,10 @@ def simulate_parallel(manipulation_advantage, adv_share_A, adv_share_B):
                                            (BLOCKTIME, BLOCKTIME*manipulation_advantage)]):
         honest_share_A = 1.0-adv_share_A
         honest_share_B = 1.0-adv_share_B
+
+        # Assumption: adversary was mining before the start of the attack.
+        # (This is always advantageous to the adversary because it increases the
+        # difficulty for honest miners during the attack.)
         honest_blocktimes = [blocktime_A/honest_share_A, blocktime_B/honest_share_B]
         adv_blocktimes    = [blocktime_A/adv_share_A,    blocktime_B/adv_share_B]
 
@@ -86,6 +90,10 @@ def simulate_alternating(manipulation_advantage, adv_share_A, adv_share_B):
                                            (BLOCKTIME/2.0, BLOCKTIME/2.0*manipulation_advantage)]):
         honest_share_A = 1.0-adv_share_A
         honest_share_B = 1.0-adv_share_B
+
+        # Assumption: adversary was mining before the start of the attack.
+        # (This is always advantageous to the adversary because it increases the
+        # difficulty for honest miners during the attack.)
         honest_blocktime_A = blocktime_A/honest_share_A
         honest_blocktime_B = blocktime_B/honest_share_B
         adv_blocktime_A = blocktime_A/adv_share_A
